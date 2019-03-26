@@ -14,7 +14,7 @@ QMAKE_CXXFLAGS += -std=c++11 -Wconversion -Wsign-conversion -Wfloat-conversion
 QMAKE_CXXFLAGS_RELEASE -= -O2 -g
 QMAKE_CXXFLAGS_RELEASE += -O3 -DNDEBUG
 
-INCLUDEPATH += common gui simulation
+INCLUDEPATH += common gui simulation /usr/include/eigen3/ /usr/include/suitesparse
 DEPENDPATH += common gui simulation
 
 ########## Warning: Everything below this line is auto-generated and will be overwritten! ##########
