@@ -43,7 +43,7 @@ private:
 		size_t m_hashlink;
 		template<typename... Args>
 		inline Entry(Args&&... args)
-			: T(std::forward<Args>(args)...) {}
+			: T(std::forward<Args>(args)...), m_hashlink(INDEX_NONE) {}
 	};
 
 private:
