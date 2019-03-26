@@ -301,8 +301,7 @@ MainWindow::MainWindow() {
     OnMeshOverlayChange();
     OnModeChange();
 
-    showMaximized();
-
+    showNormal();
 }
 
 MainWindow::~MainWindow() {
