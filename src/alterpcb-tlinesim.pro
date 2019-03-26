@@ -56,7 +56,8 @@ HEADERS += \
 	simulation/MaterialDatabase.h \
 	simulation/MatrixMarket.h \
 	simulation/SparseMatrix.h \
-	simulation/TLineTypes.h
+	simulation/TLineTypes.h \
+    gui/CustomLineEdit.h
 
 SOURCES += \
 	Main.cpp \
@@ -82,4 +83,5 @@ SOURCES += \
 	simulation/TLineTypes.cpp \
 	simulation/TLine_CoplanarWaveguide.cpp \
 	simulation/TLine_Microstrip.cpp \
-	simulation/TLine_Stripline.cpp
+	simulation/TLine_Stripline.cpp \
+    gui/CustomLineEdit.cpp

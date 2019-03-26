@@ -116,6 +116,8 @@ private slots:
 
 	void OnAbout();
 
+    void updateButtonText(bool checked);
+
 private:
 	inline SimulationType GetSimulationType() { return (SimulationType) clamp(m_combobox_simulation_type->currentIndex(), 0, SIMULATION_COUNT - 1); }
 

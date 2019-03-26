@@ -266,10 +266,10 @@ void RegisterTLine_CoplanarWaveguide() {
 		"Ground vias should be placed on both sides of the track at regular intervals (less than 1/10th of the wavelength) to ensure correct behavior. "
 		"Isolation can be improved by adding more vias.",
 		{
-			{"Track Width"            , TLINE_PARAMETERTYPE_REAL               , default_track_width            , true , 0},
+            {"Track Width"            , TLINE_PARAMETERTYPE_REAL               , default_track_width            , true , 0},
 			{"Ground Spacing"         , TLINE_PARAMETERTYPE_REAL               , default_ground_spacing         , true , 0},
 			{"Track Thickness"        , TLINE_PARAMETERTYPE_REAL               , default_track_thickness        , true , 0},
-			{"Track Material"         , TLINE_PARAMETERTYPE_MATERIAL_CONDUCTOR , default_track_material         , false, 1},
+            {"Track Material"         , TLINE_PARAMETERTYPE_MATERIAL_CONDUCTOR , default_track_material         , false, 1},
 			{"Substrate Thickness"    , TLINE_PARAMETERTYPE_REAL               , default_substrate_thickness    , true , 0},
 			{"Substrate Material"     , TLINE_PARAMETERTYPE_MATERIAL_DIELECTRIC, default_substrate_material     , false, 1},
 			{"Solder Mask Thickness 1", TLINE_PARAMETERTYPE_REAL               , default_solder_mask_thickness_1, true , 0},
