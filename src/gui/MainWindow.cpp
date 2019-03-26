@@ -609,12 +609,6 @@ void MainWindow::OnUpdateTLineType() {
                 CustomLineEdit *lineedit_value = new CustomLineEdit(parameter.m_unit_mm, widget);
                 lineedit_value->SetText(QString::fromStdString(Json::ToString(parameter.m_default_value)));
                 widget_value = lineedit_value;
-//                if(parameter.m_unit_mm)
-//                {
-//                    label_unit = new QPushButton("mm");//(parameter.m_unit_mm)? "mm" : "", widget);
-//                    label_unit->setCheckable(true);
-//                    connect(label_unit, SIGNAL(toggled(bool)), this, SLOT(updateButtonText(bool)));
-//                }
                 break;
             }
             case TLINE_PARAMETERTYPE_MATERIAL_CONDUCTOR: {
@@ -781,7 +775,6 @@ void MainWindow::OnSimulate() {
     }
 
     statusBar()->showMessage("Simulation complete.");
-
 }
 
 void MainWindow::OnZoomChange() {
@@ -803,16 +796,4 @@ void MainWindow::OnModeChange() {
 void MainWindow::OnAbout() {
     AboutDialog dialog(this);
     dialog.exec();
-}
-
-void MainWindow::updateButtonText(bool checked)
-{
-    QObject* obj = sender();
-    int i = 0;
-
-//    if (checked) {
-//        button->setText(tr("My Button Checked"));
-//    } else {
-//        button->setText(tr("My Button Unchecked"));
-//    }
 }

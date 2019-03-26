@@ -12,9 +12,6 @@ CustomLineEdit::CustomLineEdit(bool enableUnitButton, QWidget *parent) : QWidget
     lineEdit = new QLineEdit("filechooser_lineedit", this);
     layout->addWidget( lineEdit );
 
-    //connect( lineEdit, SIGNAL( textChanged( const QString & ) ),
-    //        this, SIGNAL( fileNameChanged( const QString & ) ) );
-
     if(!enableUnitButton)
     {
         return;

@@ -31,94 +31,91 @@ class MeshViewer;
 class TLineContext;
 
 class MainWindow : public QMainWindow {
-	Q_OBJECT
+    Q_OBJECT
 
 private:
-	enum SimulationType {
-		SIMULATION_SINGLE_FREQUENCY,
-		SIMULATION_FREQUENCY_SWEEP,
-		SIMULATION_PARAMETER_SWEEP,
-		SIMULATION_PARAMETER_TUNE,
-		SIMULATION_COUNT, // must be last
-	};
+    enum SimulationType {
+        SIMULATION_SINGLE_FREQUENCY,
+        SIMULATION_FREQUENCY_SWEEP,
+        SIMULATION_PARAMETER_SWEEP,
+        SIMULATION_PARAMETER_TUNE,
+        SIMULATION_COUNT, // must be last
+    };
 
 private:
-	static const QString WINDOW_CAPTION;
+    static const QString WINDOW_CAPTION;
 
 private:
-	std::unique_ptr<MaterialDatabase> m_material_database;
-	size_t m_tline_type;
+    std::unique_ptr<MaterialDatabase> m_material_database;
+    size_t m_tline_type;
 
-	QComboBox *m_combobox_tline_types;
-	QPlainTextEdit *m_textedit_description;
+    QComboBox *m_combobox_tline_types;
+    QPlainTextEdit *m_textedit_description;
 
-	FixedScrollArea *m_scrollarea_parameters;
-	std::vector<QWidget*> m_widget_parameters;
+    FixedScrollArea *m_scrollarea_parameters;
+    std::vector<QWidget*> m_widget_parameters;
 
-	QComboBox *m_combobox_simulation_type;
-	QPushButton *m_pushbutton_simulate;
+    QComboBox *m_combobox_simulation_type;
+    QPushButton *m_pushbutton_simulate;
 
-	QLabel *m_label_frequency[2];
-	QLineEdit *m_lineedit_frequency;
+    QLabel *m_label_frequency[2];
+    QLineEdit *m_lineedit_frequency;
 
-	QLabel *m_label_frequency_sweep[4];
-	QLineEdit *m_lineedit_frequency_sweep_min, *m_lineedit_frequency_sweep_max, *m_lineedit_frequency_sweep_step;
-	QLabel *m_label_frequency_sweep_file;
-	QLineEdit *m_lineedit_frequency_sweep_file;
-	QPushButton *m_pushbutton_frequency_sweep_browse;
+    QLabel *m_label_frequency_sweep[4];
+    QLineEdit *m_lineedit_frequency_sweep_min, *m_lineedit_frequency_sweep_max, *m_lineedit_frequency_sweep_step;
+    QLabel *m_label_frequency_sweep_file;
+    QLineEdit *m_lineedit_frequency_sweep_file;
+    QPushButton *m_pushbutton_frequency_sweep_browse;
 
-	QLabel *m_label_parameter_sweep[4];
-	QComboBox *m_combobox_parameter_sweep_parameter;
-	QLineEdit *m_lineedit_parameter_sweep_min, *m_lineedit_parameter_sweep_max, *m_lineedit_parameter_sweep_step;
-	QLabel *m_label_parameter_sweep_file;
-	QLineEdit *m_lineedit_parameter_sweep_file;
-	QPushButton *m_pushbutton_parameter_sweep_browse;
+    QLabel *m_label_parameter_sweep[4];
+    QComboBox *m_combobox_parameter_sweep_parameter;
+    QLineEdit *m_lineedit_parameter_sweep_min, *m_lineedit_parameter_sweep_max, *m_lineedit_parameter_sweep_step;
+    QLabel *m_label_parameter_sweep_file;
+    QLineEdit *m_lineedit_parameter_sweep_file;
+    QPushButton *m_pushbutton_parameter_sweep_browse;
 
-	QLabel *m_label_parameter_tune[3];
-	QComboBox *m_combobox_parameter_tune_parameter, *m_combobox_parameter_tune_target_result;
-	QLineEdit *m_lineedit_parameter_tune_target_value;
+    QLabel *m_label_parameter_tune[3];
+    QComboBox *m_combobox_parameter_tune_parameter, *m_combobox_parameter_tune_target_result;
+    QLineEdit *m_lineedit_parameter_tune_target_value;
 
-	FixedScrollArea *m_scrollarea_results;
-	std::vector<QLineEdit*> m_lineedit_results;
+    FixedScrollArea *m_scrollarea_results;
+    std::vector<QLineEdit*> m_lineedit_results;
 
-	MeshViewer *m_meshviewer;
-	QSlider *m_slider_zoom;
-	QComboBox *m_combobox_image_type;
-	QCheckBox *m_checkbox_mesh_overlay;
-	QComboBox *m_combobox_modes;
+    MeshViewer *m_meshviewer;
+    QSlider *m_slider_zoom;
+    QComboBox *m_combobox_image_type;
+    QCheckBox *m_checkbox_mesh_overlay;
+    QComboBox *m_combobox_modes;
 
 public:
-	MainWindow();
-	~MainWindow();
+    MainWindow();
+    ~MainWindow();
 
 private:
-	void LoadMaterials();
-	void SimulationInit(TLineContext &context);
-	void SimulationShowResult(TLineContext &context);
-	void SimulateSingleFrequency();
-	void SimulateFrequencySweep();
-	void SimulateParameterSweep();
-	void SimulateParameterTune();
+    void LoadMaterials();
+    void SimulationInit(TLineContext &context);
+    void SimulationShowResult(TLineContext &context);
+    void SimulateSingleFrequency();
+    void SimulateFrequencySweep();
+    void SimulateParameterSweep();
+    void SimulateParameterTune();
 
-	void ProcessSlowEvents(int msec = 10);
+    void ProcessSlowEvents(int msec = 10);
 
 private slots:
-	void OnUpdateTLineType();
-	void OnUpdateSimulationType();
-	void OnFrequencySweepBrowse();
-	void OnParameterSweepBrowse();
-	void OnSimulate();
+    void OnUpdateTLineType();
+    void OnUpdateSimulationType();
+    void OnFrequencySweepBrowse();
+    void OnParameterSweepBrowse();
+    void OnSimulate();
 
-	void OnZoomChange();
-	void OnImageTypeChange();
-	void OnMeshOverlayChange();
-	void OnModeChange();
+    void OnZoomChange();
+    void OnImageTypeChange();
+    void OnMeshOverlayChange();
+    void OnModeChange();
 
-	void OnAbout();
-
-    void updateButtonText(bool checked);
+    void OnAbout();
 
 private:
-	inline SimulationType GetSimulationType() { return (SimulationType) clamp(m_combobox_simulation_type->currentIndex(), 0, SIMULATION_COUNT - 1); }
-
+    inline SimulationType GetSimulationType() { return (SimulationType) clamp(m_combobox_simulation_type->currentIndex(), 0, SIMULATION_COUNT - 1); }
 };
