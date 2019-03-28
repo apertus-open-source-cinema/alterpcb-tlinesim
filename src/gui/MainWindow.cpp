@@ -68,15 +68,15 @@ MainWindow::MainWindow() {
     QWidget *centralwidget = new QWidget(this);
     setCentralWidget(centralwidget);
 
-    QGroupBox *groupbox_type = new QGroupBox("Transmission line type", this);
-    {
-        m_combobox_tline_types = new QComboBox(groupbox_type);
-        for(const TLineType &type : g_tline_types) {
-            m_combobox_tline_types->addItem(QString::fromStdString(type.m_name));
-        }
-        m_textedit_description = new QPlainTextEdit(groupbox_type);
-        m_textedit_description->setFixedHeight(80);
-        m_textedit_description->setReadOnly(true);
+	QGroupBox *groupbox_type = new QGroupBox("Transmission line type", this);
+	{
+		m_combobox_tline_types = new QComboBox(groupbox_type);
+		for(const TLineType &type : g_tline_types) {
+			m_combobox_tline_types->addItem(QString::fromStdString(type.m_name));
+		}
+		m_textedit_description = new QPlainTextEdit(groupbox_type);
+		m_textedit_description->setFixedHeight(fontMetrics().height() * 5);
+		m_textedit_description->setReadOnly(true);
 
         connect(m_combobox_tline_types, SIGNAL(currentIndexChanged(int)), this, SLOT(OnUpdateTLineType()));
 
@@ -217,31 +217,31 @@ MainWindow::MainWindow() {
         m_scrollarea_results->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         m_scrollarea_results->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
-        QVBoxLayout *layout = new QVBoxLayout(groupbox_results);
-        layout->addWidget(m_scrollarea_results);
-    }
-    QGroupBox *groupbox_viewer = new QGroupBox("Viewer", this);
-    {
-        m_meshviewer = new MeshViewer(groupbox_viewer);
-        QLabel *label_zoom = new QLabel("Zoom:", groupbox_viewer);
-        m_slider_zoom = new QSlider(Qt::Horizontal, groupbox_viewer);
-        m_slider_zoom->setRange(0, 200000);
-        m_slider_zoom->setValue(150000);
-        m_slider_zoom->setSingleStep(1000);
-        m_slider_zoom->setPageStep(10000);
-        QLabel *label_imagetype = new QLabel("Image Type:", groupbox_viewer);
-        m_combobox_image_type = new QComboBox(groupbox_viewer);
-        m_combobox_image_type->addItem("Mesh");
-        m_combobox_image_type->addItem("Electric Potential");
-        m_combobox_image_type->addItem("Magnetic Potential");
-        m_combobox_image_type->addItem("Energy");
-        m_combobox_image_type->addItem("Current");
-        m_combobox_image_type->setCurrentIndex(MESHIMAGETYPE_EPOT);
-        m_checkbox_mesh_overlay = new QCheckBox("Mesh Overlay", groupbox_viewer);
-        m_checkbox_mesh_overlay->setChecked(true);
-        QLabel *label_mode = new QLabel("Mode:", groupbox_viewer);
-        m_combobox_modes = new QComboBox(groupbox_viewer);
-        m_combobox_modes->setMinimumWidth(120);
+		QVBoxLayout *layout = new QVBoxLayout(groupbox_results);
+		layout->addWidget(m_scrollarea_results);
+	}
+	QGroupBox *groupbox_viewer = new QGroupBox("Viewer", this);
+	{
+		m_meshviewer = new MeshViewer(groupbox_viewer);
+		QLabel *label_zoom = new QLabel("Zoom:", groupbox_viewer);
+		m_slider_zoom = new QSlider(Qt::Horizontal, groupbox_viewer);
+		m_slider_zoom->setRange(0, 200000);
+		m_slider_zoom->setValue(150000);
+		m_slider_zoom->setSingleStep(1000);
+		m_slider_zoom->setPageStep(10000);
+		QLabel *label_imagetype = new QLabel("Image Type:", groupbox_viewer);
+		m_combobox_image_type = new QComboBox(groupbox_viewer);
+		m_combobox_image_type->addItem("Mesh");
+		m_combobox_image_type->addItem("Electric Potential");
+		m_combobox_image_type->addItem("Magnetic Potential");
+		m_combobox_image_type->addItem("Energy");
+		m_combobox_image_type->addItem("Current");
+		m_combobox_image_type->setCurrentIndex(MESHIMAGETYPE_EPOT);
+		m_checkbox_mesh_overlay = new QCheckBox("Mesh Overlay", groupbox_viewer);
+		m_checkbox_mesh_overlay->setChecked(true);
+		QLabel *label_mode = new QLabel("Mode:", groupbox_viewer);
+		m_combobox_modes = new QComboBox(groupbox_viewer);
+		m_combobox_modes->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
         connect(m_slider_zoom, SIGNAL(valueChanged(int)), this, SLOT(OnZoomChange()));
         connect(m_combobox_image_type, SIGNAL(activated(int)), this, SLOT(OnImageTypeChange()));
@@ -309,18 +309,18 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::LoadMaterials() {
-    if(g_application_data_dir.isEmpty()) {
-        statusBar()->showMessage("Error: Could not load materials, data directory is missing.");
-        return;
-    }
-    try {
-        m_material_database->LoadFile(g_application_data_dir.toStdString() + "/materials.json");
-        m_material_database->Finish();
-    }
-    catch(const std::runtime_error &e) {
-        statusBar()->showMessage(QString("Error: Could not load material database: ") + e.what());
-        return;
-    }
+	if(g_application_data_dir.isEmpty()) {
+		statusBar()->showMessage("Error: Could not load materials, data directory is missing.");
+		return;
+	}
+	try {
+		m_material_database->LoadFile(g_application_data_dir.toStdString() + "/materials.json");
+		m_material_database->Finish();
+	}
+	catch(const std::runtime_error &e) {
+		QMessageBox::critical(this, WINDOW_CAPTION, QString("Error: Could not load material database: ") + e.what(), QMessageBox::Ok);
+		return;
+	}
 }
 
 void MainWindow::SimulationInit(TLineContext &context) {

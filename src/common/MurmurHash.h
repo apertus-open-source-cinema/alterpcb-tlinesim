@@ -45,31 +45,21 @@ inline hash_t HashData(hash_t hash, uint64_t data) {
 }
 
 inline hash_t HashData(hash_t hash, const void *data, size_t size) {
-    size_t word_count = size / 4;
-#ifdef MAY_ALIAS
-    const uint32_t MAY_ALIAS *words = (const uint32_t*) data;
-    for(size_t i = 0; i < word_count; ++i) {
-        hash = HashData(hash, words[i]);
-    }
-#else
-    const uint8_t *bytes = (uint8_t*)data;
-    for(size_t i = 0; i < word_count; ++i) {
-        //const uint8_t *word = bytes + i * 4;
-        //uint32_t value = (uint32_t) word[0] | ((uint32_t) word[1] << 8) | ((uint32_t) word[2] << 16) | ((uint32_t) word[3] << 24);
-        uint32_t value;
-        memcpy(&value, bytes + i * 4, 4);
-        hash = HashData(hash, value);
-    }
-#endif
-    const uint8_t *remainder = (const uint8_t*) data + word_count * 4;
-    uint32_t value = 0;
-    switch(size & 3) {
-        case 3: value |= (uint32_t) remainder[2] << 16; // fallthrough
-        case 2: value |= (uint32_t) remainder[1] << 8; // fallthrough
-        case 1: value |= (uint32_t) remainder[0];
-        hash = HashData(hash, value);
-    }
-    return hash;
+	size_t word_count = size / 4;
+	for(size_t i = 0; i < word_count; ++i) {
+		uint32_t word; // memcpy is required due to strict aliasing, the compiler will optimize this
+		memcpy(&word, (const uint8_t*) data + i * 4, 4);
+		hash = HashData(hash, word);
+	}
+	const uint8_t *remainder = (const uint8_t*) data + word_count * 4;
+	uint32_t value = 0;
+	switch(size & 3) {
+		case 3: value |= (uint32_t) remainder[2] << 16; // fallthrough
+		case 2: value |= (uint32_t) remainder[1] << 8; // fallthrough
+		case 1: value |= (uint32_t) remainder[0];
+		hash = HashData(hash, value);
+	}
+	return hash;
 }
 
 inline hash_t HashFinish(hash_t hash) {
