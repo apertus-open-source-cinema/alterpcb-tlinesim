@@ -547,8 +547,8 @@ void MainWindow::SimulateParameterTune() {
     }, initial_value, 1e-8, target_value * 1e-8, 1e6);
 
     // write the result back
-    QLineEdit *lineedit_value = static_cast<QLineEdit*>(m_widget_parameters[param_index]);
-    lineedit_value->setText(QString::number(root_value));
+    CustomLineEdit *lineedit_value = static_cast<CustomLineEdit*>(m_widget_parameters[param_index]);
+    lineedit_value->SetText(QString::number(root_value));
 
     // show result
     SimulationShowResult(context);
