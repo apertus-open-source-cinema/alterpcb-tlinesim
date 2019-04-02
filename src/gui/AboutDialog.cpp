@@ -20,9 +20,8 @@ along with this AlterPCB.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "AboutDialog.h"
 
+#include "Eigen.h"
 #include "GlobalDirs.h"
-
-#include <cholmod.h>
 
 #include <sstream>
 
@@ -36,22 +35,15 @@ std::string GetVersionInfo() {
 	ss << "Compiled with MinGW " << __GNUC__ << "." << __GNUC_MINOR__ << "." << __GNUC_PATCHLEVEL__ << "\n";
 #elif defined(__GNUC__)
 	ss << "Compiled with GCC " << __GNUC__ << "." << __GNUC_MINOR__ << "." << __GNUC_PATCHLEVEL__ << "\n";
+#elif defined(_MSC_VER)
+	ss << "Compiled with MSVC " << _MSC_VER << " (" << _MSC_FULL_VER << "." << _MSC_BUILD << ")\n";
 #else
 	ss << "Compiled with unknown compiler.\n";
 #endif
 
 	ss << "Qt: header " << QT_VERSION_STR << ", lib " << qVersion() << "\n";
 
-#ifdef CHOLMOD_HAS_VERSION_FUNCTION
-	int cholmod_ver[3];
-	cholmod_version(cholmod_ver);
-	ss << "CHOLMOD: header " << CHOLMOD_MAIN_VERSION << "." << CHOLMOD_SUB_VERSION << "." << CHOLMOD_SUBSUB_VERSION
-	   << ", lib " << cholmod_ver[0] << "." << cholmod_ver[1] << "." << cholmod_ver[2] << "\n";
-#else
-	ss << "CHOLMOD: " << CHOLMOD_MAIN_VERSION << "." << CHOLMOD_SUB_VERSION << "." << CHOLMOD_SUBSUB_VERSION << "\n";
-#endif
-
-
+	ss << "Eigen: " << EIGEN_WORLD_VERSION << "." << EIGEN_MAJOR_VERSION << "." << EIGEN_MINOR_VERSION << "\n";
 
 	return ss.str();
 }

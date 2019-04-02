@@ -139,75 +139,88 @@ MainWindow::MainWindow() {
         m_label_parameter_tune[2] = new QLabel("Target Value:", groupbox_simulation);
         m_lineedit_parameter_tune_target_value = new QLineEdit("50.0", groupbox_simulation);
 
-        connect(m_combobox_simulation_type, SIGNAL(currentIndexChanged(int)), this, SLOT(OnUpdateSimulationType()));
-        connect(m_pushbutton_simulate, SIGNAL(clicked(bool)), this, SLOT(OnSimulate()));
-        connect(m_combobox_parameter_sweep_parameter, SIGNAL(currentIndexChanged(int)), this, SLOT(OnUpdateSimulationType()));
-        connect(m_combobox_parameter_tune_parameter, SIGNAL(currentIndexChanged(int)), this, SLOT(OnUpdateSimulationType()));
-        connect(m_pushbutton_frequency_sweep_browse, SIGNAL(clicked(bool)), this, SLOT(OnFrequencySweepBrowse()));
-        connect(m_pushbutton_parameter_sweep_browse, SIGNAL(clicked(bool)), this, SLOT(OnParameterSweepBrowse()));
+		QLabel *label_mesh_detail = new QLabel("Mesh Detail:", groupbox_simulation);
+		m_combobox_mesh_detail = new QComboBox(groupbox_simulation);
+		m_combobox_mesh_detail->addItem("Very Low");
+		m_combobox_mesh_detail->addItem("Lower");
+		m_combobox_mesh_detail->addItem("Low");
+		m_combobox_mesh_detail->addItem("Medium");
+		m_combobox_mesh_detail->addItem("High");
+		m_combobox_mesh_detail->addItem("Higher");
+		m_combobox_mesh_detail->addItem("Very High");
+		m_combobox_mesh_detail->setCurrentIndex(MESHDETAIL_MEDIUM);
 
-        QVBoxLayout *layout = new QVBoxLayout(groupbox_simulation);
-        {
-            QHBoxLayout *layout2 = new QHBoxLayout();
-            layout->addLayout(layout2);
-            layout2->addWidget(label_simulation_type);
-            layout2->addWidget(m_combobox_simulation_type);
-            layout2->addWidget(m_pushbutton_simulate);
-        }
-        {
-            QGridLayout *layout2 = new QGridLayout();
-            layout->addLayout(layout2);
-            layout2->addWidget(m_label_frequency[0], 0, 0);
-            {
-                QHBoxLayout *layout3 = new QHBoxLayout();
-                layout2->addLayout(layout3, 0, 1);
-                layout3->addWidget(m_lineedit_frequency);
-                layout3->addWidget(m_label_frequency[1]);
-            }
-            layout2->addWidget(m_label_frequency_sweep[0], 1, 0);
-            {
-                QHBoxLayout *layout3 = new QHBoxLayout();
-                layout2->addLayout(layout3, 1, 1);
-                layout3->addWidget(m_lineedit_frequency_sweep_min);
-                layout3->addWidget(m_label_frequency_sweep[1]);
-                layout3->addWidget(m_lineedit_frequency_sweep_max);
-                layout3->addWidget(m_label_frequency_sweep[2]);
-                layout3->addWidget(m_lineedit_frequency_sweep_step);
-                layout3->addWidget(m_label_frequency_sweep[3]);
-            }
-            layout2->addWidget(m_label_frequency_sweep_file, 2, 0);
-            {
-                QHBoxLayout *layout3 = new QHBoxLayout();
-                layout2->addLayout(layout3, 2, 1);
-                layout3->addWidget(m_lineedit_frequency_sweep_file);
-                layout3->addWidget(m_pushbutton_frequency_sweep_browse);
-            }
-            layout2->addWidget(m_label_parameter_sweep[0], 3, 0);
-            layout2->addWidget(m_combobox_parameter_sweep_parameter, 3, 1);
-            layout2->addWidget(m_label_parameter_sweep[1], 4, 0);
-            {
-                QHBoxLayout *layout3 = new QHBoxLayout();
-                layout2->addLayout(layout3, 4, 1);
-                layout3->addWidget(m_lineedit_parameter_sweep_min);
-                layout3->addWidget(m_label_parameter_sweep[2]);
-                layout3->addWidget(m_lineedit_parameter_sweep_max);
-                layout3->addWidget(m_label_parameter_sweep[3]);
-                layout3->addWidget(m_lineedit_parameter_sweep_step);
-            }
-            layout2->addWidget(m_label_parameter_sweep_file, 5, 0);
-            {
-                QHBoxLayout *layout3 = new QHBoxLayout();
-                layout2->addLayout(layout3, 5, 1);
-                layout3->addWidget(m_lineedit_parameter_sweep_file);
-                layout3->addWidget(m_pushbutton_parameter_sweep_browse);
-            }
-            layout2->addWidget(m_label_parameter_tune[0], 6, 0);
-            layout2->addWidget(m_combobox_parameter_tune_parameter, 6, 1);
-            layout2->addWidget(m_label_parameter_tune[1], 7, 0);
-            layout2->addWidget(m_combobox_parameter_tune_target_result, 7, 1);
-            layout2->addWidget(m_label_parameter_tune[2], 8, 0);
-            layout2->addWidget(m_lineedit_parameter_tune_target_value, 8, 1);
-        }
+		connect(m_combobox_simulation_type, SIGNAL(currentIndexChanged(int)), this, SLOT(OnUpdateSimulationType()));
+		connect(m_pushbutton_simulate, SIGNAL(clicked(bool)), this, SLOT(OnSimulate()));
+		connect(m_combobox_parameter_sweep_parameter, SIGNAL(currentIndexChanged(int)), this, SLOT(OnUpdateSimulationType()));
+		connect(m_combobox_parameter_tune_parameter, SIGNAL(currentIndexChanged(int)), this, SLOT(OnUpdateSimulationType()));
+		connect(m_pushbutton_frequency_sweep_browse, SIGNAL(clicked(bool)), this, SLOT(OnFrequencySweepBrowse()));
+		connect(m_pushbutton_parameter_sweep_browse, SIGNAL(clicked(bool)), this, SLOT(OnParameterSweepBrowse()));
+
+		QVBoxLayout *layout = new QVBoxLayout(groupbox_simulation);
+		{
+			QHBoxLayout *layout2 = new QHBoxLayout();
+			layout->addLayout(layout2);
+			layout2->addWidget(label_simulation_type);
+			layout2->addWidget(m_combobox_simulation_type);
+			layout2->addWidget(m_pushbutton_simulate);
+		}
+		{
+			QGridLayout *layout2 = new QGridLayout();
+			layout->addLayout(layout2);
+			layout2->addWidget(m_label_frequency[0], 0, 0);
+			{
+				QHBoxLayout *layout3 = new QHBoxLayout();
+				layout2->addLayout(layout3, 0, 1);
+				layout3->addWidget(m_lineedit_frequency);
+				layout3->addWidget(m_label_frequency[1]);
+			}
+			layout2->addWidget(m_label_frequency_sweep[0], 1, 0);
+			{
+				QHBoxLayout *layout3 = new QHBoxLayout();
+				layout2->addLayout(layout3, 1, 1);
+				layout3->addWidget(m_lineedit_frequency_sweep_min);
+				layout3->addWidget(m_label_frequency_sweep[1]);
+				layout3->addWidget(m_lineedit_frequency_sweep_max);
+				layout3->addWidget(m_label_frequency_sweep[2]);
+				layout3->addWidget(m_lineedit_frequency_sweep_step);
+				layout3->addWidget(m_label_frequency_sweep[3]);
+			}
+			layout2->addWidget(m_label_frequency_sweep_file, 2, 0);
+			{
+				QHBoxLayout *layout3 = new QHBoxLayout();
+				layout2->addLayout(layout3, 2, 1);
+				layout3->addWidget(m_lineedit_frequency_sweep_file);
+				layout3->addWidget(m_pushbutton_frequency_sweep_browse);
+			}
+			layout2->addWidget(m_label_parameter_sweep[0], 3, 0);
+			layout2->addWidget(m_combobox_parameter_sweep_parameter, 3, 1);
+			layout2->addWidget(m_label_parameter_sweep[1], 4, 0);
+			{
+				QHBoxLayout *layout3 = new QHBoxLayout();
+				layout2->addLayout(layout3, 4, 1);
+				layout3->addWidget(m_lineedit_parameter_sweep_min);
+				layout3->addWidget(m_label_parameter_sweep[2]);
+				layout3->addWidget(m_lineedit_parameter_sweep_max);
+				layout3->addWidget(m_label_parameter_sweep[3]);
+				layout3->addWidget(m_lineedit_parameter_sweep_step);
+			}
+			layout2->addWidget(m_label_parameter_sweep_file, 5, 0);
+			{
+				QHBoxLayout *layout3 = new QHBoxLayout();
+				layout2->addLayout(layout3, 5, 1);
+				layout3->addWidget(m_lineedit_parameter_sweep_file);
+				layout3->addWidget(m_pushbutton_parameter_sweep_browse);
+			}
+			layout2->addWidget(m_label_parameter_tune[0], 6, 0);
+			layout2->addWidget(m_combobox_parameter_tune_parameter, 6, 1);
+			layout2->addWidget(m_label_parameter_tune[1], 7, 0);
+			layout2->addWidget(m_combobox_parameter_tune_target_result, 7, 1);
+			layout2->addWidget(m_label_parameter_tune[2], 8, 0);
+			layout2->addWidget(m_lineedit_parameter_tune_target_value, 8, 1);
+			layout2->addWidget(label_mesh_detail, 9, 0);
+			layout2->addWidget(m_combobox_mesh_detail, 9, 1);
+		}
 
     }
     QGroupBox *groupbox_results = new QGroupBox("Results", this);
@@ -329,35 +342,38 @@ void MainWindow::SimulationInit(TLineContext &context) {
     // initialize material database
     context.m_material_database = m_material_database.get();
 
-    // initialize parameters
-    for(size_t i = 0; i < tline_type.m_parameters.size(); ++i) {
-        const TLineParameter &parameter = tline_type.m_parameters[i];
-        stringtag_t key = StringRegistry::NewTag(CanonicalName(parameter.m_name));
-        VData value;
-        switch(parameter.m_type) {
-        case TLINE_PARAMETERTYPE_BOOL: {
-            QCheckBox *checkbox = static_cast<QCheckBox*>(m_widget_parameters[i]);
-            value = checkbox->isChecked();
-            break;
-        }
-        case TLINE_PARAMETERTYPE_REAL: {
-            CustomLineEdit* lineedit_value = static_cast<CustomLineEdit*>(m_widget_parameters[i]);
-            Json::FromString(value, lineedit_value->GetText().toStdString());
-            break;
-        }
-        case TLINE_PARAMETERTYPE_MATERIAL_CONDUCTOR:
-        case TLINE_PARAMETERTYPE_MATERIAL_DIELECTRIC: {
-            QComboBox *combobox_value = static_cast<QComboBox*>(m_widget_parameters[i]);
-            value = combobox_value->currentText().toStdString();
-            break;
-        }
-        case TLINE_PARAMETERTYPE_COUNT: {
-            assert(false);
-            break;
-        }
-        }
-        context.m_parameters.EmplaceBack(VDataDictEntry(key, std::move(value)));
-    }
+	// initialize simulation settings
+	context.m_mesh_detail = exp2((real_t) (m_combobox_mesh_detail->currentIndex() - (int) MESHDETAIL_MEDIUM) * 0.5);
+
+	// initialize parameters
+	for(size_t i = 0; i < tline_type.m_parameters.size(); ++i) {
+		const TLineParameter &parameter = tline_type.m_parameters[i];
+		stringtag_t key = StringRegistry::NewTag(CanonicalName(parameter.m_name));
+		VData value;
+		switch(parameter.m_type) {
+			case TLINE_PARAMETERTYPE_BOOL: {
+				QCheckBox *checkbox = static_cast<QCheckBox*>(m_widget_parameters[i]);
+				value = checkbox->isChecked();
+				break;
+			}
+			case TLINE_PARAMETERTYPE_REAL: {
+				QLineEdit *lineedit_value = static_cast<QLineEdit*>(m_widget_parameters[i]);
+				Json::FromString(value, lineedit_value->text().toStdString());
+				break;
+			}
+			case TLINE_PARAMETERTYPE_MATERIAL_CONDUCTOR:
+			case TLINE_PARAMETERTYPE_MATERIAL_DIELECTRIC: {
+				QComboBox *combobox_value = static_cast<QComboBox*>(m_widget_parameters[i]);
+				value = combobox_value->currentText().toStdString();
+				break;
+			}
+			case TLINE_PARAMETERTYPE_COUNT: {
+				assert(false);
+				break;
+			}
+		}
+		context.m_parameters.EmplaceBack(VDataDictEntry(key, std::move(value)));
+	}
 
 }
 
