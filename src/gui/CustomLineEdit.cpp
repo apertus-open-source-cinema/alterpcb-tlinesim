@@ -36,11 +36,11 @@ void CustomLineEdit::UpdateUnitText(bool checked) {
   if (checked) {
     button->setText("mil");
 
-    lineEdit->setText(QString::number(value * 39.37008));
+    lineEdit->setText(QString::number(value * 39.37008, 'F', 6));
   } else {
     button->setText("mm");
 
-    lineEdit->setText(QString::number(value * 0.0254));
+    lineEdit->setText(QString::number(value * 0.0254, 'F', 6));
   }
 }
 

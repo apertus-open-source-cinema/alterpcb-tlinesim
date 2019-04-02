@@ -20,31 +20,30 @@ along with this AlterPCB.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ApplicationDirs.h"
 #include "Basics.h"
-#include "CholmodSolver.h"
 #include "Icons.h"
 #include "MainWindow.h"
 #include "StringRegistry.h"
 #include "TLineTypes.h"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 
-	// create singletons
-	StringRegistry string_registry;
-	UNUSED(string_registry);
+  // create singletons
+  StringRegistry string_registry;
+  UNUSED(string_registry);
 
-	// create application
-	QApplication app(argc, argv);
-	QCoreApplication::setOrganizationName("AlterPCB");
-	QCoreApplication::setApplicationName("AlterPCB Transmission Line Simulator");
-	QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+  // create application
+  QApplication app(argc, argv);
+  QCoreApplication::setOrganizationName("AlterPCB");
+  QCoreApplication::setApplicationName("AlterPCB Transmission Line Simulator");
+  QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
-	InitApplicationDirs();
-	LoadIcons();
-	RegisterTLineTypes();
+  InitApplicationDirs();
+  LoadIcons();
+  RegisterTLineTypes();
 
-	MainWindow window;
-	Q_UNUSED(window);
-	int exit_code = app.exec();
+  MainWindow window;
+  Q_UNUSED(window);
+  int exit_code = app.exec();
 
-	return exit_code;
+  return exit_code;
 }
